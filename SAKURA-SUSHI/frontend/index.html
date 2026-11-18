@@ -1,0 +1,14 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sakura Sushi — Peça online</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.469.0/dist/umd/lucide.min.js"></script></head><body>
+<div id="demo"></div>
+<header class="pub-top"><a class="brand" href="#"><span class="mon">桜</span><span><b>Sakura Sushi</b></span></a><nav><a href="#destaques">Destaques</a><a href="#cardapio">Cardápio</a><a href="#acompanhar">Acompanhar pedido</a><a href="#info">Onde estamos</a></nav>
+<a class="btn ghost" style="color:#fff;border-color:rgba(255,255,255,.3)" href="login.html">Equipe</a><button class="btn cartbtn" id="cb" aria-label="Abrir carrinho"><i data-lucide="shopping-bag"></i>Carrinho<i id="cn">0</i></button></header>
+<section class="banner-h"><div><h1>Sushi feito na hora, entregue com cuidado.</h1><p>Peixes frescos, arroz no ponto e combinados para dividir. Peça para entrega, retirada ou consumo no local.</p><a class="btn" href="#cardapio">Ver o cardápio</a></div><img class="ph" id="hero" alt="Seleção de sushi Sakura" style="box-shadow:0 20px 50px rgba(0,0,0,.35)"></section>
+<section class="sec" id="destaques"><h2>Destaques e promoções</h2><p class="sub">Os pratos que mais saem da nossa cozinha.</p><div class="grid g3" id="dest"></div></section>
+<section class="sec" id="cardapio" style="background:#fbf8f0"><h2>Cardápio</h2><p class="sub">Escolha uma categoria e adicione ao carrinho.</p><div class="cats" id="cats"></div><div class="grid g3" id="prods"></div></section>
+<section class="sec" id="acompanhar"><h2>Acompanhe seu pedido</h2><p class="sub">Informe o número do pedido e o telefone usado na compra.</p><form id="tf" class="bar"><input id="tn" placeholder="Nº do pedido (ex.: 1047)" required><input id="tp" placeholder="Telefone" required><button class="btn">Consultar</button></form><div id="tr"></div></section>
+<section class="sec" id="info" style="background:#fbf8f0"><h2>Sobre o restaurante</h2><p class="sub" id="inf"></p></section>
+<footer class="pf">© Sakura Sushi · <span id="modo"></span></footer>
+<aside class="drawer" id="dr" aria-label="Carrinho"></aside>
+<script src="js/config.js"></script><script src="js/data.js"></script><script src="js/core.js"></script><script src="js/public.js"></script></body></html>

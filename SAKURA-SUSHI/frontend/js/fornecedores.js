@@ -1,0 +1,8 @@
+App.init('fornecedores', 'Fornecedores', async v => {
+  const ing = await Store.list('ingredientes');
+  await crudPage(v, {col:'fornecedores', novo:'Novo fornecedor', search:['nome', 'cnpj', 'produtos'], vazio:'Nenhum fornecedor cadastrado.', delRoles:['admin', 'gerente'],
+    cols:[{h:'Fornecedor', f:f => `<b>${esc(f.nome)}</b><br><small>${esc(f.cnpj)}</small>`}, {h:'Contato', f:f => `${esc(f.telefone)}<br><small>${esc(f.email)}</small>`}, {h:'Endereço', w:1, f:f => esc(f.endereco)}, {h:'Produtos fornecidos', w:1, f:f => esc(f.produtos)}, {h:'Itens no estoque', f:f => ing.filter(i => i.fornecedorId == f.id).length}],
+    fields:[{k:'nome', l:'Nome ou razão social', req:1, full:1}, {k:'cnpj', l:'CNPJ'}, {k:'telefone', l:'Telefone'}, {k:'email', l:'E-mail', t:'email', full:1}, {k:'endereco', l:'Endereço', full:1}, {k:'produtos', l:'Produtos fornecidos', t:'textarea', full:1}],
+    extra:f => `<button class="btn sm ghost" data-h="${f.id}" title="Histórico de compras">${I('history')}</button>`,
+    after:(v, rows) => $$('[data-h]', v).forEach(b => b.onclick = async () => { const f = rows.find(x => x.id == b.dataset.h); const [mv, ing2] = await Promise.all([Store.list('movimentacoes'), Store.list('ingredientes')]); const l = mv.filter(m => m.tipo === 'Entrada' && ing2.find(i => i.id == m.ingredienteId)?.fornecedorId == f.id); const m = modal(`<h2>Compras — ${esc(f.nome)}</h2>${table([{h:'Data', f:x => dt(x.data)}, {h:'Item', f:x => esc(ing2.find(i => i.id == x.ingredienteId)?.nome || '')}, {h:'Qtd', f:x => x.qtd}, {h:'Motivo', f:x => esc(x.motivo)}], l, 'Nenhuma compra registrada para este fornecedor.')}<div class="mf"><button class="btn" data-x>Fechar</button></div>`); $('[data-x]', m.el).onclick = m.close; })});
+});

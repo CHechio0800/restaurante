@@ -1,0 +1,7 @@
+const CARGOS = [['admin', 'Administrador'], ['gerente', 'Gerente'], ['atendente', 'Atendente'], ['cozinheiro', 'Cozinheiro'], ['estoquista', 'Estoquista'], ['entregador', 'Entregador']];
+App.init('funcionarios', 'Funcionários', async v => {
+  await crudPage(v, {col:'funcionarios', novo:'Novo funcionário', search:['nome', 'email', 'cargoNome'], vazio:'Nenhum funcionário cadastrado.', delMsg:'Excluir este funcionário? Prefira desativar para manter o histórico.',
+    cols:[{h:'Nome', f:f => `<b>${esc(f.nome)}</b><br><small>${esc(f.email)}</small>`}, {h:'Cargo', f:f => esc(f.cargoNome)}, {h:'Telefone', f:f => esc(f.telefone)}, {h:'Contratação', f:f => dday(f.contratacao)}, {h:'Salário', f:f => brl(f.salario)}, {h:'Situação', f:f => `<span class="tag ${f.situacao === 'Ativo' ? 'ok' : 'bad'}">${esc(f.situacao)}</span>`}],
+    fields:[{k:'nome', l:'Nome completo', req:1, full:1}, {k:'cpf', l:'CPF', req:1}, {k:'telefone', l:'Telefone'}, {k:'email', l:'E-mail (login)', t:'email', req:1}, {k:'senha', l:'Senha (demonstração)', def:'mudar123'}, {k:'endereco', l:'Endereço', full:1}, {k:'cargo', l:'Cargo / permissão', t:'select', opts:CARGOS}, {k:'contratacao', l:'Data de contratação', t:'date', def:today()}, {k:'salario', l:'Salário (acesso restrito)', t:'number', step:'0.01'}, {k:'situacao', l:'Situação', t:'select', opts:['Ativo', 'Inativo']}],
+    pre:f => ({...f, cargoNome:(CARGOS.find(c => c[0] === f.cargo) || [])[1] || f.cargo})});
+});
